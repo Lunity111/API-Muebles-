@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Muebles</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="header">
+        <span class="titulo">Catálogo de Muebles</span>
+    </header>
+
+    <section class="container my-4" id="contenedor">
+        <div class="row">
+            <!-- Título -->
+            <h2 class="seccion-titulo">Muebles Disponibles</h2>
+            <!-- Tarjetas dinámicas -->
+            <div class="col-md-4 mb-4 tarjeta-contenedor" v-for="mueble in muebles" :key="mueble.id">
+                <div class="card tarjeta">
+                    <img :src="mueble.image" :alt="mueble.name" class="card-img-top tarjeta-imagen">
+                    <div class="card-body tarjeta-cuerpo">
+                        <h5 class="card-title">{{ mueble.name }}</h5>
+                        <p class="card-text"><strong>Precio:</strong> ${{ mueble.price | currency }}</p>
+                        <p class="card-text"><strong>Compañía:</strong> {{ mueble.company }}</p>
+                        <p class="card-text"><strong>Categoría:</strong> {{ mueble.category }}</p>
+                        <p class="card-text"><strong>Descripción:</strong> {{ mueble.description.slice(0, 50) }}...</p>
+                        <p class="card-text">
+                            <strong>Colores:</strong>
+                            <span v-for="color in mueble.colors" :key="color" 
+                                :style="{ backgroundColor: color }"
+                                class="color-circulo">
+                            </span>
+                        </p>
+                        <button class="btn btn-vermas" @click="verMas(mueble)">Ver más</button>
+                        <button class="btn btn-carrito" @click="añadirAlCarrito(mueble)">Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Debugging (Opcional) -->
+        <pre class="debug">{{$data}}</pre>
+    </section>
+
+    <footer class="footer">
+        <span>Frameworks</span>
+    </footer>
+
+    <script src="js/vue3.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>
